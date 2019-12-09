@@ -1,0 +1,34 @@
+{
+  "name": "the-ampulancer",
+  "version": "1.0.0",
+  "description": "An Amplitude Modulation Sequencer and Visualizer",
+  "author": "Justin Martin <info@justinlmartin.com>",
+  "private": true,
+  "scripts": {
+    "upload": "sh scripts/uploadFiles.sh"
+  },
+  "dependencies": {
+    "dgram": "^1.0.1",
+    "express": "^4.17.1",
+    "long": "^4.0.0",
+    "node-osc": "^4.1.3",
+    "osc": "^2.3.1",
+    "p5": "^0.9.0",
+    "serve-index": "^1.9.1",
+    "socket.io": "^2.3.0",
+    "ws": "^7.2.0"
+  },
+  "main": "index.js",
+  "devDependencies": {
+    "webpack": "^4.41.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jmartin432/the-ampulancer.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jmartin432/the-ampulancer/issues"
+  },
+  "homepage": "https://github.com/jmartin432/the-ampulancer#readme"
+}
