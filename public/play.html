@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Play</title>
+    <link rel="stylesheet" type="text/css" href="play.css">
+    <script src="/p5/lib/p5.min.js"></script>
+    <script src="/p5/lib/addons/p5.sound.min.js"></script>
+    <script src="/p5/lib/addons/p5.dom.min.js"></script>
+    <script src="/osc/dist/osc.js"></script>
+    <script src="/osc/dist/osc-browser.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="play.js"></script>
+</head>
+<body>
+    <div id="nav">
+        <a href="../../index.html">< Return to Index</a>
+    </div>
+    <div id="header">
+        <h1>Play</h1>
+    </div>
+    <div id="canvas">
+    </div>
+    <div id="inputs" class="grid-container">
+        <div class="grid-item">
+            <div id="buttons">
+                <button type="button" id="recordButton">Record</button>
+                <button type="button" id="playButton">Play</button>
+                <button type="button" id="stopButton">Stop</button>
+                <button type="button" id="connectPd" value="1">ConnectPd</button>
+            </div>
+            <div id="otherSliders">
+                <label for="gainSlider">Gain</label>
+                <input type="range" min="0" max="127" value="70" step="1" class="slider" id="gainSlider">
+                <label for="gainSlider">Metronome</label>
+                <input type="range" min="200" max="1000" value="1000" step="1" class="slider" id="metroSlider">
+                <label for="delaySlider">Delay</label>
+                <input type="range" min=1 max="1000" value="1" step="1" class="slider" id="delaySlider">
+                <label for="delayGainSlider">Delay Gain</label>
+                <input type="range" min="0" max=".7" value=".2" step=".01" class="slider" id="delayGainSlider">
+                <label for="sampleStartSlider">Sample Start Position</label>
+                <input type="range" min="0" max="44100" value="0" step="1" class="slider" id="sampleStartSlider">
+            </div>
+        </div>
+        <div id="modulators" class="grid-item">
+            <h2>Modulators</h2>
+            <input type="range" min="200" max="1200" value="0" step="1" class="modSlider" id="modulator0">
+            <input type="range" min="200" max="1200" value="0" step="1" class="modSlider" id="modulator1">
+            <input type="range" min="200" max="1200" value="0" step="1" class="modSlider" id="modulator2">
+            <input type="range" min="200" max="1200" value="0" step="1" class="modSlider" id="modulator3">
+            <input type="range" min="200" max="1200" value="0" step="1" class="modSlider" id="modulator4">
+            <input type="range" min="200" max="1200" value="0" step="1" class="modSlider" id="modulator5">
+            <input type="range" min="200" max="1200" value="0" step="1" class="modSlider" id="modulator6">
+            <input type="range" min="200" max="1200" value="0" step="1" class="modSlider" id="modulator7">
+            <input type="range" min="200" max="1200" value="0" step="1" class="modSlider" id="modulator8">
+            <input type="range" min="200" max="1200" value="0" step="1" class="modSlider" id="modulator9">
+        </div>
+    </div>
+</body>
+</html>
