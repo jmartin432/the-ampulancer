@@ -5,7 +5,8 @@ const socket = require('socket.io')(server);
 const nodeOsc = require('node-osc');
 
 // const host = '127.0.0.1';
-const host = '192.168.0.2';
+// const host = '192.168.1.35';
+const host = '10.255.227.194';
 
 const wsPort = '3001';
 const oscOutPort = 3002;
@@ -19,14 +20,33 @@ server.listen(wsPort);
 let oscServer = new nodeOsc.Server(oscInPort, host);
 let oscClient = new nodeOsc.Client(host, oscOutPort);
 
+let lod = 4;
+let falloff = .5;
+let saturation = 100;
+let brightness = 100;
+let threshold = 0;
+let particleSize = 5;
+let magnitudeFactor = 5;
+
+
 let io = socket;
-io.set('origins', 'http://192.168.0.2:3001/*.html', 'http://192.168.0.4:3001/*.html');
+io.set('origins', 'http://10.255.227.194:3001/*.html', 'http://192.168.1.20:3001/*.html');
+// io.set('origins', 'http://192.168.0.2:3001/*.html', 'http://192.168.0.4:3001/*.html');
 
 io.sockets.on('connection', newConnection);
 
 oscServer.on('message', function (msg) {
-    // console.log(msg);
-    io.sockets.emit('visuals', msg)
+    if (msg[0].startsWith('/visuals')){
+        if (msg[0] === '/visuals/lod') lod = msg[1];
+        else if (msg[0] === '/visuals/threshold') threshold = msg[1];
+        else if (msg[0] === '/visuals/size') particleSize = msg[1];
+        else if (msg[0] === '/visuals/velocity') magnitudeFactor = msg[1];
+        else if (msg[0] === '/visuals/brightness') brightness = msg[1];
+        else if (msg[0] === '/visuals/saturation') saturation = msg[1];
+        else if (msg[0] === '/visuals/falloff') falloff = msg[1];
+        // else if (msg[0] === '/visuals/bark') console.log('bark');
+        io.sockets.emit('visuals', msg)
+    }
 });
 
 function sendOscMessage(data){
@@ -45,6 +65,13 @@ function sendOscMessage(data){
 function newConnection(socket) {
     console.log(`new connection, ID: ${socket.id}`);
     socket.on('pd', sendOscMessage);
+    socket.emit('visuals', ['/visuals/threshold', threshold]);
+    socket.emit('visuals', ['/visuals/size', particleSize]);
+    socket.emit('visuals', ['/visuals/velocity', magnitudeFactor]);
+    socket.emit('visuals', ['/visuals/brightness', brightness]);
+    socket.emit('visuals', ['/visuals/saturation', saturation]);
+    socket.emit('visuals', ['/visuals/falloff', falloff]);
+    socket.emit('visuals', ['/visuals/lod', lod]);
 }
 
 console.log(`Server listening on ${host}:${wsPort}`);
