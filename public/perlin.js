@@ -1,7 +1,8 @@
 const s = (sketch) => {
 
     let socket;
-    let host = '10.255.227.194';
+    let host = '192.168.1.52';
+    // let host = '192.168.0.2';
     let port = '3001';
     let width =2000;
     let height = 1200;
@@ -19,6 +20,7 @@ const s = (sketch) => {
     let particleSizeInc = -0.1;
     let saturation = 50;
     let clear = false;
+    let on = true;
     let brightness = 50;
     let threshold = 0;
     let testMessages = [
@@ -97,7 +99,7 @@ const s = (sketch) => {
         if (route[1] != 'bark') console.log(data);
         switch(route[1]){
             case 'bark':
-                newSystem(data.splice(1));
+                if (on) newSystem(data.splice(1));
                 break;
             case 'saturation':
                 saturation = data[1];
@@ -122,6 +124,9 @@ const s = (sketch) => {
                 break;
             case 'size':
                 particleSize = data[1];
+                break;
+            case 'on-off':
+                on = (data[1] === 1) ? true : false;
                 break;
             default:
                 console.log('Invalid Route');

@@ -1,12 +1,12 @@
+const config = require('./config.json');
 const express = require('express');
 let app = express();
 const server = require('http').createServer(app);
 const socket = require('socket.io')(server);
 const nodeOsc = require('node-osc');
 
-// const host = '127.0.0.1';
-// const host = '192.168.1.35';
-const host = '10.255.227.194';
+const host = config.serverHost;
+const authorizedClients = config.clients;
 
 const wsPort = '3001';
 const oscOutPort = 3002;
@@ -30,8 +30,8 @@ let magnitudeFactor = 5;
 
 
 let io = socket;
-io.set('origins', 'http://10.255.227.194:3001/*.html', 'http://192.168.1.20:3001/*.html');
-// io.set('origins', 'http://192.168.0.2:3001/*.html', 'http://192.168.0.4:3001/*.html');
+io.set('origins', 'http://*:3001/*.html');
+// io.set('origins', `http://${authorizedClients[0]}:3001/*.html`, `http://${authorizedClients[1]}:3001/*.html`);
 
 io.sockets.on('connection', newConnection);
 
@@ -63,7 +63,7 @@ function sendOscMessage(data){
 }
 
 function newConnection(socket) {
-    console.log(`new connection, ID: ${socket.id}`);
+    console.log(`new connection, ID: ${socket.id}  Remote Address: ${socket.client.conn.remoteAddress}`);
     socket.on('pd', sendOscMessage);
     socket.emit('visuals', ['/visuals/threshold', threshold]);
     socket.emit('visuals', ['/visuals/size', particleSize]);
