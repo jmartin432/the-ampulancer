@@ -3,7 +3,7 @@
 #X obj 159 2855 *~ 0.7;
 #X obj 159 2882 dac~;
 #X obj 124 2245 vsl 15 128 1 1000 0 0 empty empty empty 0 -9 0 10 -262144
--1 -1 9898 1;
+-1 -1 8567 1;
 #X floatatom 82 2394 5 0 0 0 - - -;
 #X obj 152 2316 delwrite~ sample 1000;
 #X obj 154 2396 delread~ sample 1000;
@@ -22,60 +22,60 @@
 1;
 #X obj 176 563 f;
 #X obj 147 839 hradio 15 1 0 10 empty empty empty 0 -8 0 10 -262144
--1 -1 9;
+-1 -1 3;
 #X obj 217 563 + 1;
-#X obj 270 947 vsl 15 128 200 1200 0 0 empty empty empty 0 -9 0 10
--262144 -1 -1 2540 1;
+#X obj 271 947 vsl 15 128 200 1200 0 0 empty empty empty 0 -9 0 10
+-262144 -1 -1 4508 1;
 #X obj 252 1085 f;
 #X floatatom 252 1112 5 0 0 0 - - -;
 #X obj 193 1991 s~ note;
 #X obj 152 2288 r~ note;
 #X obj 176 482 delay 1000;
 #X obj 327 2215 vsl 15 128 0 0.7 0 0 empty empty empty 0 -9 0 10 -262144
--1 -1 10736 1;
+-1 -1 12700 1;
 #X obj 310 946 vsl 15 128 200 1200 0 0 empty empty empty 0 -9 0 10
--262144 -1 -1 4322 1;
+-262144 -1 -1 0 1;
 #X obj 294 1084 f;
 #X floatatom 294 1112 5 0 0 0 - - -;
 #X obj 355 945 vsl 15 128 200 1200 0 0 empty empty empty 0 -9 0 10
--262144 -1 -1 5993 1;
+-262144 -1 -1 12700 1;
 #X obj 336 1084 f;
 #X floatatom 337 1111 5 0 0 0 - - -;
 #X obj 401 949 vsl 15 128 200 1200 0 0 empty empty empty 0 -9 0 10
--262144 -1 -1 5776 1;
+-262144 -1 -1 0 1;
 #X obj 380 1085 f;
 #X floatatom 381 1112 5 0 0 0 - - -;
 #X obj 443 948 vsl 15 128 200 1200 0 0 empty empty empty 0 -9 0 10
--262144 -1 -1 9953 1;
+-262144 -1 -1 9612 1;
 #X obj 424 1086 f;
 #X floatatom 424 1113 5 0 0 0 - - -;
-#X obj 486 946 vsl 15 128 200 1200 0 0 empty empty empty 0 -9 0 10
--262144 -1 -1 5436 1;
+#X obj 488 944 vsl 15 128 200 1200 0 0 empty empty empty 0 -9 0 10
+-262144 -1 -1 0 1;
 #X obj 471 1086 f;
 #X floatatom 472 1112 5 0 0 0 - - -;
 #X obj 538 947 vsl 15 128 200 1200 0 0 empty empty empty 0 -9 0 10
--262144 -1 -1 8406 1;
+-262144 -1 -1 12675 1;
 #X obj 521 1087 f;
 #X floatatom 521 1113 5 0 0 0 - - -;
 #X obj 584 949 vsl 15 128 200 1200 0 0 empty empty empty 0 -9 0 10
--262144 -1 -1 6333 1;
+-262144 -1 -1 1074 1;
 #X obj 566 1088 f;
 #X floatatom 565 1114 5 0 0 0 - - -;
 #X obj 629 947 vsl 15 128 200 1200 0 0 empty empty empty 0 -9 0 10
--262144 -1 -1 5096 1;
+-262144 -1 -1 0 1;
 #X obj 610 1088 f;
 #X floatatom 612 1114 5 0 0 0 - - -;
 #X obj 230 947 vsl 15 128 200 1200 0 0 empty empty empty 0 -9 0 10
--262144 -1 -1 2540 1;
+-262144 -1 -1 9272 1;
 #X obj 208 1086 f;
 #X floatatom 208 1113 5 0 0 0 - - -;
 #X obj 176 591 mod 10;
 #X floatatom 348 2357 5 0 0 0 - - -;
 #X obj 176 532 metro 1000;
 #X obj 335 401 vsl 15 128 200 1000 0 0 empty empty empty 0 -9 0 10
--262144 -1 -1 5106 1;
+-262144 -1 -1 4673 1;
 #X obj 216 1743 vsl 15 128 0 44100 0 0 empty empty empty 0 -9 0 10
--262144 -1 -1 10829 1;
+-262144 -1 -1 4054 1;
 #X obj 193 1887 f;
 #X floatatom 225 1887 10 0 0 0 - - -;
 #N canvas 0 22 450 278 (subpatch) 0;
@@ -6552,7 +6552,7 @@
 #X text 352 2227 0 - 0.7;
 #X text 154 2257 1 - 1000;
 #X obj 207 2692 vsl 15 128 0 1 0 0 empty empty empty 0 -9 0 10 -262144
--1 -1 8890 1;
+-1 -1 12700 1;
 #X text 175 2014 Goes to Delay Loop;
 #X text 152 2447 Goes to DAC~;
 #N canvas 0 22 450 278 (subpatch) 0;
@@ -13187,10 +13187,11 @@ playback;
 -1 -1;
 #N canvas 0 23 450 278 (subpatch) 0;
 #X array \$0-bark-output 50 float 1;
-#A 0 0 0 0 0 0.155167 0 0 0 0 0 0.0922014 0 0 0 0 0 0 0 0 0 0 0 0 0.00293032
-0 0 0.209305 0 0 0 0 0 0.0600299 0.150142 0.129067 0.141156 0.140967
-0.0746884 0.125283 0.0743074 0.129803 0.137193 0.150677 0.158495 0.156872
-0.157168 0.155059 0.157337 0.161163 0;
+#A 0 0 0 0 0 0 0.0300622 0 0 0.0132988 0.0417755 0.015623 0.188954
+0 0.0366361 0 0 0 0 0.00620723 0.0406756 0.00333044 0.0369045 0 0 0
+0.0717044 0.363447 0 0.019081 0.00282327 0 0 0 0 0.0514734 0.0529114
+0.0710778 0.122805 0.0938264 0.168491 0.131973 0.16135 0.0817228 0.0877283
+0.113412 0.101341 0.104495 0.11064 0.0438999 1.77778e-06;
 #X coords 0 1 49 -1 200 140 1 0 0;
 #X restore 338 2662 graph;
 #X obj 359 3039 print bark;
@@ -13368,7 +13369,6 @@ threshold size on-off;
 #X text 88 1623 This where the buffer gets played and modulated by
 the frequency sent by the sequencer.;
 #X text 924 1750 Visuals can also be controlled from here.;
-#X text 850 36 This Routes OSC messages from TouchOSC;
 #X text 857 571 This routes OSC messages that are specifically for
 visuals;
 #X text 870 1156 This connects PD to Websocket Server and TouchOSC
@@ -13382,6 +13382,7 @@ analysis. Bark messages trigger a new particle system in the Websocket.
 #X msg 1138 1352 connect 192.168.1.51 3003;
 #X obj 203 455 tabwrite~ buffer1;
 #X obj 193 1915 tabplay~ buffer1;
+#X text 850 36 This routes OSC messages from TouchOSC;
 #X connect 0 0 1 0;
 #X connect 0 0 1 1;
 #X connect 2 0 3 0;
@@ -13390,9 +13391,9 @@ analysis. Bark messages trigger a new particle system in the Websocket.
 #X connect 5 0 11 0;
 #X connect 5 0 12 0;
 #X connect 6 0 20 0;
-#X connect 7 0 280 0;
+#X connect 7 0 279 0;
 #X connect 9 0 22 0;
-#X connect 9 0 280 0;
+#X connect 9 0 279 0;
 #X connect 10 0 0 0;
 #X connect 10 0 125 0;
 #X connect 12 0 4 0;
@@ -13455,7 +13456,7 @@ analysis. Bark messages trigger a new particle system in the Websocket.
 #X connect 55 0 56 1;
 #X connect 55 0 57 0;
 #X connect 55 0 191 0;
-#X connect 56 0 281 0;
+#X connect 56 0 280 0;
 #X connect 59 0 64 0;
 #X connect 60 0 59 0;
 #X connect 61 0 183 0;
@@ -13618,8 +13619,8 @@ analysis. Bark messages trigger a new particle system in the Websocket.
 #X connect 230 0 84 0;
 #X connect 233 0 232 0;
 #X connect 234 0 155 0;
+#X connect 236 0 277 0;
 #X connect 236 0 278 0;
-#X connect 236 0 279 0;
 #X connect 238 0 240 0;
 #X connect 240 0 237 0;
 #X connect 241 0 243 0;
@@ -13678,6 +13679,6 @@ analysis. Bark messages trigger a new particle system in the Websocket.
 #X connect 263 0 264 0;
 #X connect 264 0 237 0;
 #X connect 265 0 256 0;
-#X connect 278 0 91 0;
-#X connect 279 0 256 0;
-#X connect 281 0 6 0;
+#X connect 277 0 91 0;
+#X connect 278 0 256 0;
+#X connect 280 0 6 0;
