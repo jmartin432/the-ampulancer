@@ -23,38 +23,56 @@
     </div>
     <div id="inputs" class="grid-container">
         <div class="grid-item">
-            <div id="buttons">
-                <button type="button" id="recordButton">Record</button>
-                <button type="button" id="playButton">Play</button>
-                <button type="button" id="stopButton">Stop</button>
-                <button type="button" id="connectPd" value="1">ConnectPd</button>
+            <div id="particle-shape">
+                <input type="range" min="0" max="10" step=".1" class="particle-slider" id="particle-size">
+                <input type="range" min="1" max="15" step=".1" class="particle-slider" id="particle-length">
             </div>
-            <div id="otherSliders">
-                <label for="gainSlider">Gain</label>
-                <input type="range" min="0" max="127" value="70" step="1" class="slider" id="gainSlider">
-                <label for="gainSlider">Metronome</label>
-                <input type="range" min="200" max="1000" value="1000" step="1" class="slider" id="metroSlider">
-                <label for="delaySlider">Delay</label>
-                <input type="range" min=1 max="1000" value="1" step="1" class="slider" id="delaySlider">
-                <label for="delayGainSlider">Delay Gain</label>
-                <input type="range" min="0" max=".7" value=".2" step=".01" class="slider" id="delayGainSlider">
-                <label for="sampleStartSlider">Sample Start Position</label>
-                <input type="range" min="0" max="44100" value="0" step="1" class="slider" id="sampleStartSlider">
+            <div id="particle-color">
+                <input type="range" min="0" max="100" step=".1" class="particle-slider" id="particle-brightness">
+                <input type="range" min="0" max="100" step=".1" class="particle-slider" id="particle-saturation">
+            </div>
+            <div id="particle-perlin">
+                <input type="range" min="1" max="14" step=".1" class="particle-slider" id="particle-lod">
+                <input type="range" min="0" max="1" step=".01" class="particle-slider" id="particle-falloff">
             </div>
         </div>
-        <div id="modulators" class="grid-item">
-            <h2>Modulators</h2>
-            <input type="range" min="200" max="1200" value="0" step="1" class="modSlider" id="modulator0">
-            <input type="range" min="200" max="1200" value="0" step="1" class="modSlider" id="modulator1">
-            <input type="range" min="200" max="1200" value="0" step="1" class="modSlider" id="modulator2">
-            <input type="range" min="200" max="1200" value="0" step="1" class="modSlider" id="modulator3">
-            <input type="range" min="200" max="1200" value="0" step="1" class="modSlider" id="modulator4">
-            <input type="range" min="200" max="1200" value="0" step="1" class="modSlider" id="modulator5">
-            <input type="range" min="200" max="1200" value="0" step="1" class="modSlider" id="modulator6">
-            <input type="range" min="200" max="1200" value="0" step="1" class="modSlider" id="modulator7">
-            <input type="range" min="200" max="1200" value="0" step="1" class="modSlider" id="modulator8">
-            <input type="range" min="200" max="1200" value="0" step="1" class="modSlider" id="modulator9">
-        </div>
-    </div>
+     </div>
 </body>
 </html>
+
+
+
+
+<!--                -->
+<!--                <button type="button" id="recordButton">Record</button>-->
+<!--                <button type="button" id="playButton">Play</button>-->
+<!--                <button type="button" id="stopButton">Stop</button>-->
+<!--                <button type="button" id="connectPd" value="1">ConnectPd</button>-->
+<!--            </div>-->
+<!--            <div id="otherSliders">-->
+<!--                <label for="gainSlider">Gain</label>-->
+<!--                <input type="range" min="0" max="127" value="70" step="1" class="slider" id="gainSlider">-->
+<!--                <label for="gainSlider">Metronome</label>-->
+<!--                <input type="range" min="200" max="1000" value="1000" step="1" class="slider" id="metroSlider">-->
+<!--                <label for="delaySlider">Delay</label>-->
+<!--                <input type="range" min=1 max="1000" value="1" step="1" class="slider" id="delaySlider">-->
+<!--                <label for="delayGainSlider">Delay Gain</label>-->
+<!--                <input type="range" min="0" max=".7" value=".2" step=".01" class="slider" id="delayGainSlider">-->
+<!--                <label for="sampleStartSlider">Sample Start Position</label>-->
+<!--                <input type="range" min="0" max="44100" value="0" step="1" class="slider" id="sampleStartSlider">-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div id="modulators" class="grid-item">-->
+<!--            <h2>Modulators</h2>-->
+<!--            <input type="range" min="200" max="1200" value="0" step="1" class="modSlider" id="modulator0">-->
+<!--            <input type="range" min="200" max="1200" value="0" step="1" class="modSlider" id="modulator1">-->
+<!--            <input type="range" min="200" max="1200" value="0" step="1" class="modSlider" id="modulator2">-->
+<!--            <input type="range" min="200" max="1200" value="0" step="1" class="modSlider" id="modulator3">-->
+<!--            <input type="range" min="200" max="1200" value="0" step="1" class="modSlider" id="modulator4">-->
+<!--            <input type="range" min="200" max="1200" value="0" step="1" class="modSlider" id="modulator5">-->
+<!--            <input type="range" min="200" max="1200" value="0" step="1" class="modSlider" id="modulator6">-->
+<!--            <input type="range" min="200" max="1200" value="0" step="1" class="modSlider" id="modulator7">-->
+<!--            <input type="range" min="200" max="1200" value="0" step="1" class="modSlider" id="modulator8">-->
+<!--            <input type="range" min="200" max="1200" value="0" step="1" class="modSlider" id="modulator9">-->
+<!--        </div>-->
+

@@ -1,8 +1,7 @@
 const s = (sketch) => {
 
     let socket;
-    let host = '192.168.1.52';
-    // let host = '192.168.0.2';
+    let host = '192.168.0.2';
     let port = '3001';
     let width =2000;
     let height = 1200;
@@ -10,12 +9,12 @@ const s = (sketch) => {
     let systems = [];
     let xOffsetInc = .01;
     let totalSystems = 20;
-    let velocityScalar = 5;
+    let length = 5;
     let maxSteps = 100;
     let lod = 4;
     let falloff = .5;
     let fullScreenButton;
-    let particleSize = 10;
+    let size = 10;
     let noiseAngleWindow = 4;
     let particleSizeInc = -0.1;
     let saturation = 50;
@@ -45,7 +44,8 @@ const s = (sketch) => {
     sketch.setup = () => {
         let url = `http://${host}:${port}`;
         socket = io.connect(url);
-        socket.on('visuals', routeMessage);
+        socket.on('updateMessage', handleUpdateMessage);
+        socket.on('newSystem', newSystem);
         mainCanvas = sketch.createCanvas(width, height);
         mainCanvas.parent('canvas');
         fullScreenButton = document.getElementById('fullScreenButton');
@@ -69,10 +69,10 @@ const s = (sketch) => {
             this.pos = sketch.createVector(x, y);
             this.magnitude = magnitude;
             this.xOffset = (Math.random() * 10000);
-            this.vel = p5.Vector.fromAngle(sketch.noise(this.xOffset) * noiseAngleWindow * sketch.PI, magnitude * velocityScalar);
+            this.vel = p5.Vector.fromAngle(sketch.noise(this.xOffset) * noiseAngleWindow * sketch.PI, magnitude * length);
             this.hue = hue;
             this.step = 0;
-            this.size = particleSize;
+            this.size = size;
         }
 
         update() {
@@ -80,7 +80,7 @@ const s = (sketch) => {
             this.xOffset += xOffsetInc;
             if (this.step < maxSteps) {
                 this.size += particleSizeInc;
-                this.vel = p5.Vector.fromAngle(sketch.noise(this.xOffset) * noiseAngleWindow * sketch.PI, this.magnitude * velocityScalar);
+                this.vel = p5.Vector.fromAngle(sketch.noise(this.xOffset) * noiseAngleWindow * sketch.PI, this.magnitude * length);
                 this.pos.add(this.vel);
             }
         }
@@ -93,46 +93,52 @@ const s = (sketch) => {
         }
     }
 
-    function routeMessage(data) {
-        let route = data[0].split('/');
-        route.shift();
-        if (route[1] != 'bark') console.log(data);
-        switch(route[1]){
-            case 'bark':
-                if (on) newSystem(data.splice(1));
-                break;
-            case 'saturation':
-                saturation = data[1];
-                break;
-            case 'brightness':
-                brightness = data[1];
-                break;
-            case 'falloff':
-                updateNoiseDetail(lod, data[1]);
-                break;
-            case 'velocity':
-                velocityScalar = data[1];
-                break;
-            case 'lod':
-                updateNoiseDetail(Math.ceil(data[1]), falloff);
-                break;
-            case 'clear':
-                clear = true;
-                break;
-            case 'threshold':
-                threshold = data[1];
-                break;
-            case 'size':
-                particleSize = data[1];
-                break;
-            case 'on-off':
-                on = (data[1] === 1) ? true : false;
-                break;
-            default:
-                console.log('Invalid Route');
-        }
-
+    function handleUpdateMessage(data) {
+        console.log("Received Update Message", data);
+        if (data['particle-size']) size = data['particle-size'][0];
+        if (data['particle-length']) length = data['particle-length'][0];
+        if (data['particle-brightness']) brightness = data['particle-brightness'][0];
+        if (data['particle-saturation']) saturation = data['particle-saturation'][0];
+        if (data['particle-lod']) updateNoiseDetail(Math.ceil(data['particle-lod'][0]), falloff);
+        if (data['particle-falloff']) updateNoiseDetail(lod, data['particle-falloff'][0]);
     }
+        // let route = data[0].split('/');
+        // route.shift();
+        // if (route[1] != 'bark') console.log(data);
+        // switch(route[1]){
+        //     case 'bark':
+        //         if (on) newSystem(data.splice(1));
+        //         break;
+        //     case 'saturation':
+        //         saturation = data[1];
+        //         break;
+        //     case 'brightness':
+        //         brightness = data[1];
+        //         break;
+        //     case 'falloff':
+        //         updateNoiseDetail(lod, data[1]);
+        //         break;
+        //     case 'velocity':
+        //         velocityScalar = data[1];
+        //         break;
+        //     case 'lod':
+        //         updateNoiseDetail(Math.ceil(data[1]), falloff);
+        //         break;
+        //     case 'clear':
+        //         clear = true;
+        //         break;
+        //     case 'threshold':
+        //         threshold = data[1];
+        //         break;
+        //     case 'size':
+        //         particleSize = data[1];
+        //         break;
+        //     case 'on-off':
+        //         on = (data[1] === 1) ? true : false;
+        //         break;
+        //     default:
+        //         console.log('Invalid Route');
+        //
 
     function newSystem(data){
         let systemX = Math.floor(Math.random() * width);

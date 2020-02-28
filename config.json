@@ -1,8 +1,15 @@
 {
-    "serverHost": "192.168.1.52",
-    "clients": [
-        "192.168.1.52",
-        "192.168.1.51"
+    "ports": {
+        "websocket": 3001,
+        "pureDataOut": 3002,
+        "pureDataIn": 3003,
+        "touchOscOut": 3004,
+        "touchOscIn": 3005
+    },
+    "serverHost": "192.168.0.2",
+    "authorizedClients": [
+        "192.168.0.2",
+        "192.168.0.4"
     ],
-    "touchOscHost": "192.168.1.51"
+    "touchOscHost": "192.168.0.4"
 }
