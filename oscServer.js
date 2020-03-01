@@ -4,8 +4,10 @@ let app = express();
 const server = require('http').createServer(app);
 const socket = require('socket.io')(server);
 const nodeOsc = require('node-osc');
+const logger = require('log4js').getLogger();
 
-const serverHost = config.serverHost;
+const serverHost = "localhost";
+// const serverHost = config.serverHost;
 const touchOscHost = config.touchOscHost;
 const authorizedClients = config.authorizedClients;
 
@@ -25,18 +27,34 @@ let pureDataClient = new nodeOsc.Client(serverHost, pureDataOutPort);
 let touchOscServer = new nodeOsc.Server(touchOscInPort, serverHost);
 let touchOscClient = new nodeOsc.Client(touchOscHost, touchOscOutPort);
 
+logger.level = 'debug';
+// logger.level('info');
+
 let threshold = 0;
 
 let initialMessage = {
-    'particle-size': [10],
+    'particle-radius': [10],
     'particle-length': [10],
     'particle-brightness': [100],
     'particle-saturation': [100],
     'particle-lod': [10],
     'particle-falloff': [1],
     'particle-direction': [1],
+    'sample-reverse': [0],
     'sample-metronome': [100],
-    'sample-start': [100]
+    'sample-start': [100],
+    'looper-delay': [1],
+    'looper-delaygain': [.5],
+    'modulator-m0': [400],
+    'modulator-m1': [400],
+    'modulator-m2': [400],
+    'modulator-m3': [400],
+    'modulator-m4': [400],
+    'modulator-m5': [400],
+    'modulator-m6': [400],
+    'modulator-m7': [400],
+    'modulator-m8': [400],
+    'modulator-m9': [400]
 };
 
 let io = socket;
@@ -48,78 +66,86 @@ io.sockets.on('connection', newConnection);
 pureDataServer.on('message', handlePureDataOscMessage);
 touchOscServer.on('message', handleTouchOscMessage);
 
+function handleBrowserMessage(data){
+    logger.info("Received Browser Message", data);
+    for (const [key, value] of Object.entries(data)) {
+        initialMessage[key] = value;
+        logger.debug("New Initial Message", initialMessage)
+    }
+    io.sockets.emit('updateMessage', data);
+    let getOscMessage = new Promise((resolve, reject) => {
+        resolve(jsonToOsc(data))
+    });
+    getOscMessage.then((message) => {
+        sendOscMessageToPureData(message);
+        sendOscMessageToTouchOsc(message);
+    });
+}
+
 function handlePureDataOscMessage(message){
-    console.log("Received Pure Data OSC Message", message);
-    sendOscMessageToTouchOsc(message);
-    oscToJson(message);
-    if (message[0].startsWith('/bark')){
+    let address = message[0];
+    let args = message.slice(1);
+    if (address.startsWith('/modulator/led')) {
+        sendOscMessageToTouchOsc(message);
+        return;
+    }
+    if (address.startsWith('/visuals/bark')) {
         io.sockets.emit('newSystem', message)
+    } else {
+        logger.info("Received Pure Data OSC Message", message);
+        sendOscMessageToTouchOsc(message);
+        io.sockets.emit("updateMessage", oscToJson(address, args));
     }
 }
 
 function handleTouchOscMessage(message){
-    console.log("Received TouchOSC Message", message);
+    logger.info("Received TouchOSC Message", message);
     sendOscMessageToPureData(message);
-    oscToJson(message);
+    io.sockets.emit("updateMessage", oscToJson(message));
 }
 
-
-function oscToJson(data){
+function oscToJson(address, args){
     let message = {};
-    console.log('Converting OSC to JSON');
-    console.log(data);
-    let key = data[0].substring(1).replace('/', '-');
-    let value = data.splice(1);
-    message[key] = value;
-    console.log("Outgoing JSON message", message);
+    logger.debug(`Converting ${address}, ${args} to JSON`);
+    let key = address.substring(1).replace('/', '-');
+    message[key] = args;
+    logger.info("Outgoing JSON message", message);
     return message
 }
 
 function jsonToOsc(data){
     let message;
-    console.log('Converting JSON to OSC');
-    console.log(data);
+    logger.debug('Converting JSON to OSC', data);
     for (const [key, value] of Object.entries(data)) {
         let address = `/${key.replace('-', '/')}`;
         message = new nodeOsc.Message(address);
         value.forEach(item => message.append(item));
     }
-    console.log("Outgoing OSC message", message);
+    logger.info("Outgoing OSC message", message);
     return message
-}
-
-function handleBrowserMessage(data){
-    console.log("Received Browser Message", data);
-    console.log('Sending Update Message', data);
-    for (const [key, value] of Object.entries(data)) {
-        initialMessage[key] = value;
-        console.log("New Initial Message", initialMessage)
-    }
-    io.sockets.emit('updateMessage', data);
-    sendOscMessageToPureData(jsonToOsc(data));
-    sendOscMessageToTouchOsc(jsonToOsc(data));
 }
 
 function sendOscMessageToPureData(message){
     pureDataClient.send(message, (err) => {
-        if (err) console.error(err);
+        if (err) logger.error(err);
     });
 }
 
 function sendOscMessageToTouchOsc(message){
-    pureDataClient.send(message, (err) => {
-        if (err) console.error(err);
+    touchOscClient.send(message, (err) => {
+        if (err) logger.error(err);
     });
 }
 
 function newConnection(socket) {
-    console.log(`new connection, ID: ${socket.id}  Remote Address: ${socket.client.conn.remoteAddress}`);
-    // socket.on('oscMessage', );
+    logger.info(`new connection, ID: ${socket.id}  Remote Address: ${socket.client.conn.remoteAddress}`);
     socket.on('browserMessage', handleBrowserMessage);
     socket.emit('updateMessage', initialMessage);
 }
 
-console.log(`Server listening on ${serverHost}:${wsPort}`);
+logger.level = (process.argv[2] && process.argv[2] == 'debug') ? 'debug' : 'info';
+logger.info('Logging Level', logger.level.levelStr) ;
+logger.info(`Server listening on ${serverHost}:${wsPort}`);
 
 
 // socket.emit('visuals', ['/visuals/size', particleSize]);

@@ -95,52 +95,18 @@ const s = (sketch) => {
 
     function handleUpdateMessage(data) {
         console.log("Received Update Message", data);
-        if (data['particle-size']) size = data['particle-size'][0];
+        if (data['particle-radius']) size = data['particle-radius'][0];
         if (data['particle-length']) length = data['particle-length'][0];
         if (data['particle-brightness']) brightness = data['particle-brightness'][0];
         if (data['particle-saturation']) saturation = data['particle-saturation'][0];
         if (data['particle-lod']) updateNoiseDetail(Math.ceil(data['particle-lod'][0]), falloff);
         if (data['particle-falloff']) updateNoiseDetail(lod, data['particle-falloff'][0]);
     }
-        // let route = data[0].split('/');
-        // route.shift();
-        // if (route[1] != 'bark') console.log(data);
-        // switch(route[1]){
-        //     case 'bark':
-        //         if (on) newSystem(data.splice(1));
-        //         break;
-        //     case 'saturation':
-        //         saturation = data[1];
-        //         break;
-        //     case 'brightness':
-        //         brightness = data[1];
-        //         break;
-        //     case 'falloff':
-        //         updateNoiseDetail(lod, data[1]);
-        //         break;
-        //     case 'velocity':
-        //         velocityScalar = data[1];
-        //         break;
-        //     case 'lod':
-        //         updateNoiseDetail(Math.ceil(data[1]), falloff);
-        //         break;
-        //     case 'clear':
-        //         clear = true;
-        //         break;
-        //     case 'threshold':
-        //         threshold = data[1];
-        //         break;
-        //     case 'size':
-        //         particleSize = data[1];
-        //         break;
-        //     case 'on-off':
-        //         on = (data[1] === 1) ? true : false;
-        //         break;
-        //     default:
-        //         console.log('Invalid Route');
-        //
 
     function newSystem(data){
+        // console.log(data[0]);
+        // console.log(data[1]);
+
         let systemX = Math.floor(Math.random() * width);
         let systemY = Math.floor(Math.random() * height);
         let systemColor = Math.floor(Math.random() * 360);
