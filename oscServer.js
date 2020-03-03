@@ -89,7 +89,7 @@ function handlePureDataOscMessage(message){
         sendOscMessageToTouchOsc(message);
         return;
     }
-    if (address.startsWith('/visuals/bark')) {
+    if (address.startsWith('/particle/bark')) {
         io.sockets.emit('newSystem', message)
     } else {
         logger.info("Received Pure Data OSC Message", message);

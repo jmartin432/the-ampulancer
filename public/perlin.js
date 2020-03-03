@@ -1,7 +1,8 @@
 const s = (sketch) => {
 
     let socket;
-    let host = '192.168.0.2';
+    let host = 'localhost';
+    // let host = '192.168.0.2';
     let port = '3001';
     let width =2000;
     let height = 1200;
