@@ -6,8 +6,8 @@ const socket = require('socket.io')(server);
 const nodeOsc = require('node-osc');
 const logger = require('log4js').getLogger();
 
-const serverHost = "localhost";
-// const serverHost = config.serverHost;
+// const serverHost = "localhost";
+const serverHost = config.serverHost;
 const touchOscHost = config.touchOscHost;
 const authorizedClients = config.authorizedClients;
 
@@ -26,9 +26,6 @@ let pureDataServer = new nodeOsc.Server(pureDataInPort, serverHost);
 let pureDataClient = new nodeOsc.Client(serverHost, pureDataOutPort);
 let touchOscServer = new nodeOsc.Server(touchOscInPort, serverHost);
 let touchOscClient = new nodeOsc.Client(touchOscHost, touchOscOutPort);
-
-logger.level = 'debug';
-// logger.level('info');
 
 let threshold = 0;
 
@@ -99,15 +96,17 @@ function handlePureDataOscMessage(message){
 }
 
 function handleTouchOscMessage(message){
-    logger.info("Received TouchOSC Message", message);
+    let address = message[0];
+    let args = message.slice(1);
+    logger.info("Received TouchOSC Message", address, args);
     sendOscMessageToPureData(message);
-    io.sockets.emit("updateMessage", oscToJson(message));
+    io.sockets.emit("updateMessage", oscToJson(address, args));
 }
 
 function oscToJson(address, args){
     let message = {};
-    logger.debug(`Converting ${address}, ${args} to JSON`);
-    let key = address.substring(1).replace('/', '-');
+    logger.debug(`Converting ${address.toString()}, ${args} to JSON`);
+    let key = address.toString().substring(1).replace('/', '-');
     message[key] = args;
     logger.info("Outgoing JSON message", message);
     return message

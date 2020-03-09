@@ -1,8 +1,8 @@
 const s = (sketch) => {
 
     let socket;
-    let host = 'localhost';
-    // let host = '192.168.0.2';
+    // let host = 'localhost';
+    let host = '192.168.0.2';
     let port = '3001';
     let width =2000;
     let height = 1200;
@@ -70,7 +70,7 @@ const s = (sketch) => {
             this.pos = sketch.createVector(x, y);
             this.magnitude = magnitude;
             this.xOffset = (Math.random() * 10000);
-            this.vel = p5.Vector.fromAngle(sketch.noise(this.xOffset) * noiseAngleWindow * sketch.PI, magnitude * length);
+            this.vel = p5.Vector.fromAngle(sketch.noise(this.xOffset) * noiseAngleWindow * sketch.PI, this.magnitude * length);
             this.hue = hue;
             this.step = 0;
             this.size = size;
@@ -102,6 +102,7 @@ const s = (sketch) => {
         if (data['particle-saturation']) saturation = data['particle-saturation'][0];
         if (data['particle-lod']) updateNoiseDetail(Math.ceil(data['particle-lod'][0]), falloff);
         if (data['particle-falloff']) updateNoiseDetail(lod, data['particle-falloff'][0]);
+        if (data['particle-clear']) clear = true;
     }
 
     function newSystem(data){

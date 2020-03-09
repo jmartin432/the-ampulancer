@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Play</title>
+    <title>Play Debug</title>
     <link rel="stylesheet" type="text/css" href="play.css">
     <script src="/p5/lib/p5.min.js"></script>
     <script src="/p5/lib/addons/p5.sound.min.js"></script>
@@ -28,32 +28,33 @@
                 <option value="6">6</option>
                 <option value="7">7</option>
             </select>
-            <h1></h1>
-<!--            <h1>Particles</h1>-->
+            <h1>Particle Shape</h1>
             <div id="particle-shape" hidden>
                 <input type="range" min="0" max="10" step=".1" class="particle-slider" id="particle-radius">
                 <input type="range" min="1" max="15" step=".1" class="particle-slider" id="particle-length">
             </div>
+            <h1>Particle Color</h1>
             <div id="particle-color" hidden>
                 <input type="range" min="0" max="100" step=".1" class="particle-slider" id="particle-brightness">
                 <input type="range" min="0" max="100" step=".1" class="particle-slider" id="particle-saturation">
             </div>
+            <h1>Particle Perlin</h1>
             <div id="particle-perlin" hidden>
                 <input type="range" min="1" max="14" step=".1" class="particle-slider" id="particle-lod">
                 <input type="range" min="0" max="1" step=".01" class="particle-slider" id="particle-falloff">
             </div>
-<!--            <h1>Sample</h1>-->
+            <h1>Sample</h1>
             <div id="sample-controls" hidden>
                 <input type="checkbox" id="sample-reverse">
                 <input type="range" min="200" max="1000" step="1" class="sample-slider" id="sample-metronome">
                 <input type="range" min="1" max="44100" step="10" class="sample-slider" id="sample-start">
             </div>
-<!--            <h1>Looper</h1>-->
+            <h1>Looper</h1>
             <div id="looper-controls" hidden>
                 <input type="range" min="1" max="1000" step="1" class="looper-slider" id="looper-delay">
                 <input type="range" min="0" max=".7" step=".01" class="looper-slider" id="looper-delaygain">
             </div>
-<!--            <h1>Even Mods</h1>-->
+            <h1>Even Mods</h1>
             <div id="even-modulators" hidden>
                 <input type="range" min="200" max="1200" step="10" class="modulator-slider" id="modulator-m0">
                 <input type="range" min="200" max="1200" step="10" class="modulator-slider" id="modulator-m2">
@@ -61,7 +62,7 @@
                 <input type="range" min="200" max="1200" step="10" class="modulator-slider" id="modulator-m6">
                 <input type="range" min="200" max="1200" step="10" class="modulator-slider" id="modulator-m8">
             </div>
-<!--            <h1>Odd Mods</h1>-->
+            <h1>Odd Mods</h1>
             <div id="odd-modulators" hidden>
                 <input type="range" min="200" max="1200" step="10" class="modulator-slider" id="modulator-m1">
                 <input type="range" min="200" max="1200" step="10" class="modulator-slider" id="modulator-m3">
